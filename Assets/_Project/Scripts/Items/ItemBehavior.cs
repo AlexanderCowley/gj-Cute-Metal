@@ -7,4 +7,6 @@ public class ItemBehavior : MonoBehaviour
     {
         
     }
+
+    void Use() => itemData.UseItem();
 }
