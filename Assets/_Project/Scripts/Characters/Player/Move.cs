@@ -13,7 +13,7 @@ public class Move : MonoBehaviour
 
         Vector3 moveObject = new Vector3(xAxis, 0, yAxis);
 
-        _characterController.Move(moveObject);
+        object p = _characterController.Move(moveObject);
     }
 
     void Update() => MoveOnInput();
