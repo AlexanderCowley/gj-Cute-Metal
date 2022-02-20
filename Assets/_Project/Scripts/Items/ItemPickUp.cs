@@ -31,7 +31,7 @@ public class ItemPickUp : MonoBehaviour
 
     void RemoveItem()
     {
-
+        Destroy(this.gameObject, .5f);
     }
 
     void OnTriggerExit(Collider other)
