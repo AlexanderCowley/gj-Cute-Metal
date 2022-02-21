@@ -13,34 +13,65 @@ public class PlayerCharacterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-    void MoveOnInput()
-    {
-        float xAxis = Input.GetAxis("Horizontal") * MovementSpeed * Time.deltaTime;
+        animator = GetComponent<Animator>();
         float yAxis = Input.GetAxis("Vertical") * MovementSpeed * Time.deltaTime;
 
-        Vector3 moveObject = new Vector3(xAxis, 0, yAxis);
-
-        object p = _characterController.Move(moveObject);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            animator.SetTrigger("Walk");
-        }
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            animator.SetTrigger("Crouch");
+        if (Input.GetKey(KeyCode.W))
+        {   
+            animator.SetBool ("Idle", false);
+            animator.SetBool ("Walk", true);
         }
-
-        if (!Input.GetKeyDown(KeyCode.C))
+        else
         {
-            animator.SetTrigger("Stand");
+            animator.SetBool ("Idle", true);
+            animator.SetBool ("Walk", false);
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+
+        }
+        else
+        {
+
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+
+        }
+        else
+        {
+
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+
+        }
+        else
+        {
+
+        }
+        if (Input.GetKey(KeyCode.Space))
+        {
+
+        }
+        else
+        {
+
+        }
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            animator.SetBool("Walk", false);
+            animator.SetBool("Run", true);
+        }
+        else
+        {
+
         }
     }
 }
