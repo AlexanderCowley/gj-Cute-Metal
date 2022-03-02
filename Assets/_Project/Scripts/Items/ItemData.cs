@@ -2,14 +2,17 @@ using UnityEngine;
 
 public abstract class ItemData : ScriptableObject
 {
-    public delegate void OnValueChanged();
+    public delegate void OnValueChanged(ItemData itemData);
     public event OnValueChanged valueChangedEvent;
+    public event OnValueChanged emptyItemEvent;
 
     [SerializeField] protected string _Name;
 
     [SerializeField] protected int _Value;
 
     [SerializeField] protected int _quantity;
+
+    [SerializeField] protected int _amountPerUse = 1;
 
     [SerializeField] protected int _maxQuantity;
 
@@ -23,13 +26,33 @@ public abstract class ItemData : ScriptableObject
         get => _quantity;
         set
         {
-            _quantity = Mathf.Clamp(_quantity, 0, MaxQuantity);
             _quantity = value;
-            valueChangedEvent?.Invoke();
+            _quantity = Mathf.Clamp(_quantity, 0, MaxQuantity);
+
+            if (!HasItem())
+            {
+                Debug.Log("is zero");
+                emptyItemEvent?.Invoke(this);
+            }
+            else
+            {
+                Debug.Log("value changed");
+                valueChangedEvent?.Invoke(this);
+            }
+
         }
     }
 
-    public abstract void UseItem();
+    public virtual void UseItem()
+    {
+        ItemQuantity -= _amountPerUse;
+        ApplyEffects();
+    }
 
+    public abstract void ApplyEffects();
+
+    bool HasItem() => ItemQuantity > 0;
+
+    //Remove this later
     void OnEnable() => _quantity = 0;
 }

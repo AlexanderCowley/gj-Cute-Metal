@@ -14,9 +14,7 @@ public class ItemPickUp : MonoBehaviour
     bool _inRange = false;
     void OnTriggerEnter(Collider other)
     {
-        //Check for Inventory
-        //Add Quantity of Item
-        if (!other.GetComponent<Move>()) return;
+        if (!other.GetComponent<CharacterInventory>()) return;
 
         InRangeHandler?.Invoke();
         _inRange = true;
@@ -24,19 +22,18 @@ public class ItemPickUp : MonoBehaviour
 
     void PickUp()
     {
-        print($"Add {ItemData.ItemName} to inventory");
         ItemData.ItemQuantity += QuantityToAdd;
         RemoveItem();
     }
 
     void RemoveItem()
     {
-        Destroy(this.gameObject, .5f);
+        Destroy(this.gameObject, .25f);
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (!other.GetComponent<Move>()) return;
+        if (!other.GetComponent<CharacterInventory>()) return;
 
         InRangeHandler?.Invoke();
         _inRange = false;
