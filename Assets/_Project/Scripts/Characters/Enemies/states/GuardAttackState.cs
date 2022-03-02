@@ -8,14 +8,14 @@ public class GuardAttackState : MonoBehaviour, IState
 
     [SerializeField] Transform gunTransform;
 
+    [SerializeField] GameObject _bullet;
+
     [SerializeField] float attackRange;
     [SerializeField] float fireRate;
     float timeSinceLastShot;
 
     GuardStateMachine stateMachine;
     NavMeshAgent _agent;
-
-    bool isAttacking;
     public void OnStateEntered()
     {
         stateMachine = GetComponent<GuardStateMachine>();
@@ -30,7 +30,6 @@ public class GuardAttackState : MonoBehaviour, IState
 
     void Attack()
     {
-        //Evaluate 
         if (!_agent.pathPending)
         {
             if (DistanceAwayFromPlayer())
@@ -42,7 +41,9 @@ public class GuardAttackState : MonoBehaviour, IState
         if(Time.time > timeSinceLastShot)
         {
             timeSinceLastShot = Time.time + fireRate / 1000;
-            print("Fire Bullet");
+            Vector3 direction = gunTransform.position - targetTransform.position;
+            GameObject temp = Instantiate(_bullet, gunTransform.position, Quaternion.identity);
+            temp.GetComponent<MoveBullet>().Init(gunTransform.position, targetTransform.position);
         }
     }
 

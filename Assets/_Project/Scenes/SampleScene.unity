@@ -543,6 +543,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 305007790}
+  - {fileID: 1085099381}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -559,7 +560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 509362065}
-  attackRange: 7
+  attackRange: 8
 --- !u!114 &381650490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,8 +574,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 509362065}
-  gunTransform: {fileID: 0}
-  attackRange: 7
+  gunTransform: {fileID: 1085099381}
+  _bullet: {fileID: 3350675621475706362, guid: e950ee71c9a19eb4fad53a0664a42360, type: 3}
+  attackRange: 8
   fireRate: 2000
 --- !u!1 &469965200
 GameObject:
@@ -672,6 +674,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &509362058 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4845205419488744893, guid: 8a2c1fc8c380f294a817d525344af46c, type: 3}
+  m_PrefabInstance: {fileID: 795602215}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &509362059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 509362058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688ea3e6c2b59d4488b64764f2687026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &509362065 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4845205419488744868, guid: 8a2c1fc8c380f294a817d525344af46c, type: 3}
@@ -1216,7 +1235,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4845205419488744869, guid: 8a2c1fc8c380f294a817d525344af46c, type: 3}
   m_PrefabInstance: {fileID: 795602215}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 509362058}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2dcb22af1d61f94bb9a563dc48e4a37, type: 3}
@@ -1267,6 +1286,36 @@ Transform:
   - {fileID: 799141457}
   m_Father: {fileID: 0}
   m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1085099380
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1085099381}
+  m_Layer: 0
+  m_Name: GunTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1085099381
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085099380}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.81}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 381650488}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1381849963
 PrefabInstance:
