@@ -560,7 +560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 509362065}
-  attackRange: 8
+  attackRange: 10
 --- !u!114 &381650490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -576,7 +576,7 @@ MonoBehaviour:
   targetTransform: {fileID: 509362065}
   gunTransform: {fileID: 1085099381}
   _bullet: {fileID: 3350675621475706362, guid: e950ee71c9a19eb4fad53a0664a42360, type: 3}
-  attackRange: 8
+  attackRange: 6
   fireRate: 2000
 --- !u!1 &469965200
 GameObject:

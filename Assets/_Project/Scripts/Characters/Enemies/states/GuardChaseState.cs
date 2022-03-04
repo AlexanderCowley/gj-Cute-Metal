@@ -23,16 +23,21 @@ public class GuardChaseState : MonoBehaviour, IState
 
     public void OnStateExecute()
     {
+        print("Chasing");
         if (!_agent.pathPending)
         {
             _agent.destination = targetTransform.position;
             if (DistanceBetweenPlayer())
+            {
+                _agent.ResetPath();
                 stateMachine.ChangeState<GuardAttackState>();
+            }
         }
     }
 
     public void OnStateExit()
     {
+        //_agent.ResetPath();
         _agent = null;
     }
 }

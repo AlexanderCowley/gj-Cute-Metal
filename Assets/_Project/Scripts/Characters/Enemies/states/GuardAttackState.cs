@@ -34,17 +34,24 @@ public class GuardAttackState : MonoBehaviour, IState
         {
             if (DistanceAwayFromPlayer())
             {
+                print("Change to chase state");
                 stateMachine.ChangeState<GuardChaseState>();
             }
+
+
+            if (Time.time > timeSinceLastShot)
+                FireBullet();
         }
 
-        if(Time.time > timeSinceLastShot)
-        {
-            timeSinceLastShot = Time.time + fireRate / 1000;
-            Vector3 direction = gunTransform.position - targetTransform.position;
-            GameObject temp = Instantiate(_bullet, gunTransform.position, Quaternion.identity);
-            temp.GetComponent<MoveBullet>().Init(gunTransform.position, targetTransform.position);
-        }
+
+    }
+
+    void FireBullet()
+    {
+        timeSinceLastShot = Time.time + fireRate / 1000;
+        print("attack");
+        //GameObject temp = Instantiate(_bullet, gunTransform.position, Quaternion.identity);
+        //temp.GetComponent<MoveBullet>().Init(gunTransform.position, targetTransform.position);
     }
 
     public void OnStateExecute()
