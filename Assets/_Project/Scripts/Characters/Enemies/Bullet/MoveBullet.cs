@@ -3,6 +3,7 @@ using UnityEngine;
 public class MoveBullet : MonoBehaviour
 {
     [SerializeField] float movementSpeed;
+    [SerializeField] int damage;
 
     IDamagable damagable;
 
@@ -17,7 +18,7 @@ public class MoveBullet : MonoBehaviour
         if (other.GetComponent<IDamagable>() != null)
         {
             damagable = other.GetComponent<IDamagable>();
-            damagable?.OnTakeDamage();
+            damagable?.OnTakeDamage(damage);
             Destroy(this, .25f);
         }
     }

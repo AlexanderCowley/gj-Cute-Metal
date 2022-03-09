@@ -8,17 +8,20 @@ public class GuardAttackState : MonoBehaviour, IState
 
     [SerializeField] Transform gunTransform;
 
-    [SerializeField] GameObject _bullet;
-
     [SerializeField] float attackRange;
     [SerializeField] float fireRate;
+
+    [SerializeField] float fireRateRadius;
+
+    int _damage = 3;
+
     float timeSinceLastShot;
 
-    GuardStateMachine stateMachine;
+    GuardStateMachine _stateMachine;
     NavMeshAgent _agent;
     public void OnStateEntered()
     {
-        stateMachine = GetComponent<GuardStateMachine>();
+        _stateMachine = GetComponent<GuardStateMachine>();
         _agent = GetComponent<NavMeshAgent>();
     }
 
@@ -34,12 +37,10 @@ public class GuardAttackState : MonoBehaviour, IState
         {
             if (DistanceAwayFromPlayer())
             {
-                print("Change to chase state");
-                stateMachine.ChangeState<GuardChaseState>();
+                _stateMachine.ChangeState<GuardChaseState>();
             }
-
-
-            if (Time.time > timeSinceLastShot)
+            //Subscribe Fire Bullet with player spotted?
+            if (Time.time > timeSinceLastShot && _stateMachine.PlayerDetected)
                 FireBullet();
         }
 
@@ -50,8 +51,14 @@ public class GuardAttackState : MonoBehaviour, IState
     {
         timeSinceLastShot = Time.time + fireRate / 1000;
         print("attack");
-        //GameObject temp = Instantiate(_bullet, gunTransform.position, Quaternion.identity);
-        //temp.GetComponent<MoveBullet>().Init(gunTransform.position, targetTransform.position);
+        RaycastHit hit;
+        if(Physics.SphereCast(gunTransform.position, fireRateRadius, transform.forward, out hit))
+        {
+            IDamagable damagableData;
+            hit.transform.TryGetComponent<IDamagable>(out damagableData);
+
+            damagableData?.OnTakeDamage(_damage);
+        }
     }
 
     public void OnStateExecute()

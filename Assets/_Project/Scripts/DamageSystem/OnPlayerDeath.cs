@@ -1,15 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class OnPlayerDeath : MonoBehaviour, IDamagable
+[RequireComponent(typeof(OnDamageTaken))]
+public class OnPlayerDeath : MonoBehaviour
 {
-    public void OnTakeDamage()
-    {
-        ResetScene();
-    }
-
-    void ResetScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+    OnDamageTaken damagable;
+    void Awake() => damagable = GetComponent<OnDamageTaken>();
+    void OnEnable() => damagable.Stats.playerDeathHandler += ResetScene;
+    void OnDisable() => damagable.Stats.playerDeathHandler -= ResetScene;
+    void ResetScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 }

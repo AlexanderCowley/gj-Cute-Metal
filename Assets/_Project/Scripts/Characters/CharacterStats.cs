@@ -9,6 +9,9 @@ public class CharacterStats : ScriptableObject
     [Header("Character Speed")]
     [SerializeField] float speed = 1;
 
+    public delegate void OnDeath();
+    public event OnDeath playerDeathHandler;
+
     public float Speed => speed;
 
     public int Health
@@ -18,6 +21,9 @@ public class CharacterStats : ScriptableObject
         {
             health = value;
             health = Mathf.Clamp(health, 0, maxHealth);
+
+            if (health <= 0)
+                playerDeathHandler?.Invoke();
         }
     }
 

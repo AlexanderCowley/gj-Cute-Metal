@@ -7,37 +7,33 @@ public class GuardChaseState : MonoBehaviour, IState
 
     [SerializeField] float attackRange;
 
-    GuardStateMachine stateMachine;
+    GuardStateMachine _stateMachine;
     NavMeshAgent _agent;
     public void OnStateEntered()
     {
-        stateMachine = GetComponent<GuardStateMachine>();
+        _stateMachine = GetComponent<GuardStateMachine>();
         _agent = GetComponent<NavMeshAgent>();
     }
 
     bool DistanceBetweenPlayer()
     {
         float distance = Vector3.Distance(targetTransform.position, transform.position);
-        return distance < attackRange;
+        return distance <= attackRange;
     }
 
     public void OnStateExecute()
     {
-        print("Chasing");
         if (!_agent.pathPending)
         {
             _agent.destination = targetTransform.position;
             if (DistanceBetweenPlayer())
-            {
-                _agent.ResetPath();
-                stateMachine.ChangeState<GuardAttackState>();
-            }
+                _stateMachine.ChangeState<GuardAttackState>();
         }
     }
 
     public void OnStateExit()
     {
-        //_agent.ResetPath();
+        _agent.ResetPath();
         _agent = null;
     }
 }
