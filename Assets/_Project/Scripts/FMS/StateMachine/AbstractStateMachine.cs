@@ -36,6 +36,7 @@ public abstract class AbstractStateMachine : MonoBehaviour
 
     void Transition(IState nextState)
     {
+        print(nextState);
         _InTransition = true;
 
         _currentState?.OnStateExit();

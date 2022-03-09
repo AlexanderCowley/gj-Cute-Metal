@@ -18,7 +18,7 @@ public class FieldOfView : MonoBehaviour
         _guardSM = GetComponentInParent<GuardStateMachine>();
         GetComponent<SphereCollider>().radius = ViewRadius;
     }
-
+    
     public Vector3 DirectionFromAngle(float angleInDegrees, bool angleIsGlobal)
     {
         if (!angleIsGlobal)
@@ -33,36 +33,18 @@ public class FieldOfView : MonoBehaviour
         if (other.GetComponent<CharacterInventory>() == null)
             return;
 
-        if (FindTarget() == true)
-            _guardSM.PlayerDetected = true;
+        print($"Player detection: {FindTarget()}");
+
+        _guardSM.PlayerDetected = FindTarget();
     }
 
     void OnTriggerStay(Collider other)
     {
         if (other.GetComponent<CharacterInventory>() == null)
             return;
-        if (FindTarget() == true)
-            _guardSM.PlayerDetected = true;
-    }
 
-    void FindTargetsInRange()
-    {
-        Collider[] targetsInView = Physics.OverlapSphere(transform.position, ViewRadius, targetMask);
-
-        for(int i = 0; i < targetsInView.Length; i++)
-        {
-            Transform targetTransform = targetsInView[i].transform;
-            Vector3 directionToTarget = (targetTransform.position - transform.position).normalized;
-            if(Vector3.Angle(transform.forward, directionToTarget) < ViewAngle / 2)
-            {
-                float distanceToTarget = Vector3.Distance(transform.position, targetTransform.position);
-
-                if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstacleMask))
-                {
-                    //can see player
-                }
-            }
-        }
+        print($"Player detection: {FindTarget()}");
+        _guardSM.PlayerDetected = FindTarget();
     }
 
     public bool FindTarget()
