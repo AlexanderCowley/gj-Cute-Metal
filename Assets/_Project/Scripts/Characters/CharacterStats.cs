@@ -5,7 +5,7 @@ public class CharacterStats : ScriptableObject
 {
     [Header("Character Health")]
     [SerializeField] int maxHealth = 10;
-    int health;
+    [SerializeField, ReadOnly] int currentHealth;
     [Header("Character Speed")]
     [SerializeField] float speed = 1;
 
@@ -16,13 +16,13 @@ public class CharacterStats : ScriptableObject
 
     public int Health
     {
-        get { return health; }
+        get { return currentHealth; }
         set
         {
-            health = value;
-            health = Mathf.Clamp(health, 0, maxHealth);
+            currentHealth = value;
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-            if (health <= 0)
+            if (currentHealth <= 0)
                 playerDeathHandler?.Invoke();
         }
     }
