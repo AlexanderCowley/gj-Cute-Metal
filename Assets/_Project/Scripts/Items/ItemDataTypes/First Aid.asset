@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Name: First Aid
   _Value: 10
-  _quantity: 0
-  MaxQuantity: 3
+  _quantity: 3
+  _maxQuantity: 5

@@ -3,8 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "New ItemType/Healing")]
 public class HealingItems : ItemData
 {
-    public override void UseItem()
+    public override void ApplyEffects()
     {
-        Debug.Log("Use Healing Item");
+        Debug.Log("Heal");
     }
 }
