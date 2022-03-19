@@ -4,10 +4,12 @@ using System.Collections.Generic;
 public abstract class AbstractStateMachine : MonoBehaviour
 {
     IState _currentState;
-
     public IState CurrentState => _currentState;
     protected List<IState> _states = new List<IState>();
-    protected bool _InTransition { get; private set; }
+
+    [SerializeField, ReadOnly, Header("Current State")]
+    protected MonoBehaviour CurrentMonoState;
+    protected bool _InTransition {get; private set; }
 
     void Awake() => AddStates();
 
@@ -36,7 +38,7 @@ public abstract class AbstractStateMachine : MonoBehaviour
 
     void Transition(IState nextState)
     {
-        print(nextState);
+        CurrentMonoState = (MonoBehaviour)nextState;
         _InTransition = true;
 
         _currentState?.OnStateExit();
