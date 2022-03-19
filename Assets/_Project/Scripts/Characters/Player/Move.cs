@@ -1,14 +1,33 @@
 using UnityEngine;
 
-public class Move : MonoBehaviour
+public class Move : MonoBehaviour, IState
 {
+    PlayerMovementStateMachine _stateMachine;
     CharacterController _characterController;
+    Animator _animator;
     [SerializeField] float MovementSpeed;
     float defaultSpeed;
-    void Awake() 
+
+    public void OnStateEntered()
     {
         defaultSpeed = MovementSpeed;
-        _characterController = GetComponent<CharacterController>(); 
+        _stateMachine = GetComponent<PlayerMovementStateMachine>();
+        _characterController = GetComponent<CharacterController>();
+        _animator = GetComponent<Animator>();
+
+        _animator.SetBool("IsWalking", true);
+    }
+
+    public void OnStateExecute()
+    {
+        MoveOnInput();
+        CheckInput();
+    }
+
+    void CheckInput()
+    {
+        if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
+            _stateMachine.ChangeState<IdleCharacter>();
     }
 
     void MoveOnInput()
@@ -26,5 +45,9 @@ public class Move : MonoBehaviour
         _characterController.Move(moveObject);
     }
 
-    void Update() => MoveOnInput();
+    public void OnStateExit()
+    {
+        _animator.SetBool("IsWalking", false);
+        _characterController = null;
+    }
 }
