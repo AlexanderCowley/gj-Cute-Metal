@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   maxHealth: 10
+  currentHealth: 10
   speed: 3
+  runningSpeed: 5

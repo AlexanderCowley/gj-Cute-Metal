@@ -8,6 +8,7 @@ public class CharacterStats : ScriptableObject
     [SerializeField, ReadOnly] int currentHealth;
     [Header("Character Speed")]
     [SerializeField] float speed = 1;
+    [SerializeField] float runningSpeed;
 
     public delegate void OnDeath();
     public event OnDeath playerDeathHandler;
